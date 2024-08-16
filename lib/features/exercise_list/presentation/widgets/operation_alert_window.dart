@@ -5,7 +5,7 @@ import 'package:workout_diary_bloc/models/exercise_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
 
 enum OperationType { add, update, delete }
-
+//ignore: must_be_immutable
 class OperationAlertWindow extends StatefulWidget {
   OperationAlertWindow(
       {super.key,

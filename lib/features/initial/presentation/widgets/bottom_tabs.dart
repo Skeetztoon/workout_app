@@ -14,6 +14,7 @@ class _BottomTabsState extends State<BottomTabs> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      // height: 70,
       shape: const CircularNotchedRectangle(),
       color: MyColors.blackColor,
       child: BlocBuilder<BottomTabsBloc, BottomTabsState>(
@@ -38,7 +39,7 @@ class _BottomTabsState extends State<BottomTabs> {
                   context.read<BottomTabsBloc>().add(ChangeTab(index: 1));
                 },
                 icon: Icon(
-                  Icons.calendar_month_sharp,
+                  Icons.subject,
                   color: (state.tabIndex == 1)
                       ? MyColors.activeColor
                       : MyColors.darkGreyColor,

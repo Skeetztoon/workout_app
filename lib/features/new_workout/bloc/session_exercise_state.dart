@@ -5,11 +5,10 @@ abstract class SessionExerciseState extends Equatable {
   @override
   List<Object> get props => [];
 }
-
+//ignore: must_be_immutable
 class SessionExerciseInitial extends SessionExerciseState {
   List<SessionExercise> sessionExercises;
-
-  SessionExerciseInitial({required this.sessionExercises});
+  SessionExerciseInitial({required this.sessionExercises,});
 
   @override
   List<Object> get props => [sessionExercises];

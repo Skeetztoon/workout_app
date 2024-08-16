@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bottom_tabs_event.dart';
 part 'bottom_tabs_state.dart';

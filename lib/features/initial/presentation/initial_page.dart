@@ -16,21 +16,23 @@ class InitialPage extends StatefulWidget {
 class _InitialPageState extends State<InitialPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: BlocBuilder<BottomTabsBloc, BottomTabsState>(
-        builder: (context, state) {
-          return (state.tabIndex == 0)
-              ? const HomePage()
-              : const WorkoutsListPage();
-        },
+    return SafeArea(
+      child: Scaffold(
+      
+        body: BlocBuilder<BottomTabsBloc, BottomTabsState>(
+          builder: (context, state) {
+            return (state.tabIndex == 0)
+                ? const HomePage()
+                : const WorkoutsListPage();
+          },
+        ),
+      
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        extendBody: true,
+        floatingActionButton: const FloatingButton(),
+      
+        bottomNavigationBar: const BottomTabs(),
       ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      extendBody: true,
-      floatingActionButton: const FloatingButton(),
-
-      bottomNavigationBar: const BottomTabs(),
     );
   }
 }

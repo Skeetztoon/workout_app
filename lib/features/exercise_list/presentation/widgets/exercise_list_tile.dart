@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/widgets/operation_alert_window.dart';
 import 'package:workout_diary_bloc/models/exercise_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
+import 'package:workout_diary_bloc/theme/styling_constants.dart';
 
 class ExerciseListTile extends StatefulWidget {
   const ExerciseListTile({super.key, required this.exercise});
@@ -16,7 +17,7 @@ class _ExerciseListTileState extends State<ExerciseListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: MyPadding.tilePadding,
       decoration: BoxDecoration(
         color: MyColors.lightGreyColor,
         borderRadius: BorderRadius.circular(15.0),

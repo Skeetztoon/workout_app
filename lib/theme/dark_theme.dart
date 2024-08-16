@@ -7,7 +7,8 @@ ThemeData darkTheme = ThemeData(
 );
 
 TextTheme myTextTheme = const TextTheme(
-  bodyLarge: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: MyColors.whiteColor),
+  bodyLarge: TextStyle(fontSize: 30,),
   bodyMedium: TextStyle(fontSize: 22,),
   bodySmall: TextStyle(fontSize: 18, ),
+  titleLarge: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: MyColors.whiteColor),
 );

@@ -5,7 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:workout_diary_bloc/features/exercise_list/bloc/exercises_list_bloc.dart';
 import 'package:workout_diary_bloc/features/initial/bottom_tabs/bottom_tabs_bloc.dart';
 import 'package:workout_diary_bloc/features/initial/presentation/initial_page.dart';
-import 'package:workout_diary_bloc/features/new_workout/session_exercise/session_exercise_bloc.dart';
+import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
+import 'package:workout_diary_bloc/features/new_workout/stopwatch_cubit/stopwatch_cubit.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
 import 'package:workout_diary_bloc/theme/dark_theme.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => BottomTabsBloc()),
         BlocProvider(create: (context) => SessionExerciseBloc()),
+        BlocProvider(create: (_) => StopwatchCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

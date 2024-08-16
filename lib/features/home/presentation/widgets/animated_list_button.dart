@@ -11,19 +11,78 @@ class AnimatedListButton extends StatefulWidget {
 
 class _AnimatedListButtonState extends State<AnimatedListButton>
     with SingleTickerProviderStateMixin {
+  bool isExpanded = true;
+  bool isVisible = true;
+
+  void _expand() async {
+    await Future.delayed(const Duration(seconds: 5));
+    if (mounted) {
+      if (isExpanded == true) {
+        setState(() {
+          isVisible = !isVisible;
+        });
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      }
+    }
+
+  }
+
+  @override
+  void initState() {
+    _expand();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
+        GestureDetector(child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: MyColors.activeColor,
+            boxShadow: const [ BoxShadow(
+                blurRadius: 10.0, offset: Offset(5, 5), color: Colors.black87),],
+          ),
+          child: const Icon(Icons.settings, ),
+        ),),
+        GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const ExerciseListPage()));
           },
-          child: const CircleAvatar(
-            radius: 30,
-            backgroundColor: MyColors.activeColor,
-            child: Icon(Icons.list, size: 30,),
+          child: AnimatedContainer(
+            curve: Curves.ease,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: MyColors.activeColor,
+              boxShadow: const [ BoxShadow(
+                  blurRadius: 10.0, offset: Offset(5, 5), color: Colors.black87),],
+            ),
+            duration: const Duration(milliseconds: 1000),
+            width: isExpanded ? 180 : 50,
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AnimatedCrossFade(
+                  firstChild: const Text('Exercises list'),
+                  secondChild: Container(width: 0,),
+                  crossFadeState: isVisible
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 400),
+                ),
+                // AnimatedContainer(
+                //   duration: const Duration(milliseconds: 400),
+                //   child: (isVisible)?const Text('Exercises list'):null,
+                // ),
+                const Icon(Icons.reorder),
+              ],
+            ),
           ),
         ),
       ],

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
-
+//ignore: must_be_immutable
 class SessionExercise extends Equatable {
   String? title;
-   int? reps;
-   int? sets;
-   int? load;
+   int reps;
+   int sets;
+   int load;
 
-   SessionExercise({this.title, this.reps, this.sets, this.load});
+   SessionExercise({this.title, this.reps=1, this.sets=1, this.load=0});
 
   @override
   List<Object?> get props => [title, reps, sets, load];

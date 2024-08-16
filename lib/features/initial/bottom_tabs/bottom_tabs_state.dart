@@ -1,6 +1,5 @@
 part of 'bottom_tabs_bloc.dart';
 
-@immutable
 abstract class BottomTabsState {
   final int tabIndex;
 

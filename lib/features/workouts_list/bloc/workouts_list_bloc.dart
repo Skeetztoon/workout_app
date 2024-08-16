@@ -39,18 +39,17 @@ class WorkoutsListBloc extends HydratedBloc<WorkoutsListEvent, WorkoutsListState
       final List<dynamic> listJson = json['workoutsList'];
       final List<Workout> workouts = listJson.map((e) => Workout.fromJson(e as Map<String, dynamic>)).toList();
       return WorkoutsListLoaded(workouts: workouts);
-    } catch (_) {
+    } catch (e) {
       return WorkoutsListInitial();
     }
   }
 
   @override
-  Map<String, dynamic>? toJson(WorkoutsListState state) {
-    if (state is WorkoutsListLoaded) {
-      final status = state;
+  Map<String, dynamic> toJson(WorkoutsListState state) {
+
+      final status = state as WorkoutsListLoaded;
       final List<dynamic>jsonList = status.workouts.map((sessionExercise) => sessionExercise.toJson()).toList();
       return {'workoutsList' : jsonList};
-    }
-    return null;
+
   }
 }

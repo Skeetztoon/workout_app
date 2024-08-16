@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
-import 'package:workout_diary_bloc/features/new_workout/presentation/widgets/session_exercise_list_tile.dart';
-import 'package:workout_diary_bloc/features/new_workout/session_exercise/session_exercise_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:workout_diary_bloc/core/exceptions/empty_title_exception.dart';
+import 'package:workout_diary_bloc/core/widgets/small_back_button.dart';
+import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
+import 'package:workout_diary_bloc/features/new_workout/presentation/widgets/stopwatch.dart';
+import 'package:workout_diary_bloc/features/new_workout/presentation/widgets/workout_list_container.dart';
+import 'package:workout_diary_bloc/features/new_workout/stopwatch_cubit/stopwatch_cubit.dart';
+import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
 import 'package:workout_diary_bloc/models/session_exercise.dart';
+import 'package:workout_diary_bloc/models/workout_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
+import 'package:workout_diary_bloc/theme/styling_constants.dart';
 
 class NewWorkoutPage extends StatefulWidget {
   const NewWorkoutPage({super.key});
@@ -14,80 +22,126 @@ class NewWorkoutPage extends StatefulWidget {
 }
 
 class _NewWorkoutPageState extends State<NewWorkoutPage> {
+  final stopWatch = Stopwatch();
+  @override
+  void initState() {
+    stopWatch.start();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: MyPadding.pagePadding,
         child: Column(
           children: [
             const SizedBox(
               height: 50,
             ),
             Text(
-              'YOUR EXERCISES',
-              style: Theme.of(context).textTheme.bodyLarge,
+              'NEW WORKOUT',
+              style: Theme.of(context).textTheme.titleLarge,
             ),
+            const MyStopwatch(),
+            const SizedBox(
+              height: 10,
+            ),
+            const WorkoutListContainer(),
             const SizedBox(
               height: 20,
             ),
-            Text(
-              'some time',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.65,
-                decoration: BoxDecoration(
-                  color: MyColors.lightGreyColor,
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    BlocBuilder<SessionExerciseBloc, SessionExerciseState>(
-                      builder: (context, state) {
-                        if (state is SessionExerciseInitial) {
-                          return ConstrainedBox(
-                            constraints: const BoxConstraints(maxHeight: 500),
-                            child: ListView.builder(
-                                itemCount: state.sessionExercises.length,
-                                itemBuilder: (context, index) {
-                                  return SessionExerciseListTile(
-                                    index: index,
-                                  );
-                                }),
-                          );
-                        } else {
-                          return const Text('Something went wrong');
-                        }
-                      },
-                    ),
-                    FloatingActionButton.extended(
-                      onPressed: () {
-                        context.read<SessionExerciseBloc>().add(AddSessionExercise(exercise: SessionExercise()));
-                      },
-                      label: const Text('ADD'),
-                      backgroundColor: MyColors.activeColor,
-                      icon: const Icon(Icons.add),
-                    ),
-                  ],
-                )),
-            Expanded(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: SwipeButton.expand(
-                height: 80,
-                thumb: const Icon(Icons.arrow_forward_ios),
-                activeThumbColor: MyColors.activeColor,
-                activeTrackColor: MyColors.activeColor,
-                onSwipe: () {},
-                child: const Text('Slide to finish'),
-              ),
-            )),
+            _actionButtons(),
           ],
         ),
       ),
+    );
+  }
+
+
+  Widget _actionButtons() {
+    return Row(
+      children: [
+        SmallBackButton(onTap: () {
+          context.read<SessionExerciseBloc>().add(ResetState());
+          Navigator.pop(context);
+        },),
+        const SizedBox(width: 20,),
+        BlocBuilder<SessionExerciseBloc, SessionExerciseState>(
+          builder: (context, state) {
+            if (state is SessionExerciseInitial) {
+              return Expanded(
+                child: SwipeButton.expand(
+                  height: 60,
+                  borderRadius: BorderRadius.circular(15.0),
+                  thumb: const Icon(Icons.arrow_forward_ios, color: MyColors.whiteColor,),
+                  activeThumbColor: MyColors.activeColor,
+                  activeTrackColor: MyColors.activeColor,
+                  onSwipe: () {
+                    try {
+                      List<SessionExercise> list = state.sessionExercises;
+                      String time = context.read<StopwatchCubit>().state;
+                      for (var exercise in state.sessionExercises) {
+                        if (exercise.title==null) {
+                          throw const EmptyTitleException('You should select exercise');
+                        }
+                      }
+                      context.read<WorkoutsListBloc>().add(
+                        AddWorkout(
+                          workout: Workout(
+                            exercises: list,
+                            duration: time,
+                            dateTime: DateTime.parse(DateFormat("yyyy-MM-dd").format(DateTime.now())),
+                          ),
+                        ),
+                      );
+                      context.read<SessionExerciseBloc>().add(ResetState());
+                      Navigator.pop(context);
+                    } catch (e) {
+                      showDialog<void>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext dialogContext) {
+                          if (e is EmptyTitleException) {
+                            return AlertDialog(
+                              backgroundColor: MyColors.lightGreyColor,
+                              title: Text(e.toString()),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Got it', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: MyColors.activeColor),),
+                                  onPressed: () {
+                                    Navigator.of(dialogContext)
+                                        .pop(); // Dismiss alert dialog
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                          return AlertDialog(
+                            title: const Text('Something went wrong'),
+                            content: const Text('Error occurred'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(dialogContext)
+                                      .pop(); // Dismiss alert dialog
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Text('Slide to finish', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: MyColors.whiteColor),),
+                ),
+              );
+            } else {
+              return const Placeholder();
+            }
+          },),
+      ],
     );
   }
 }

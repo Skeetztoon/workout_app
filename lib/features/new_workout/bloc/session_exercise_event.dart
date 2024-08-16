@@ -2,6 +2,8 @@ part of 'session_exercise_bloc.dart';
 
 abstract class SessionExerciseEvent extends Equatable {
   const SessionExerciseEvent();
+  @override
+  List<Object?> get props => [];
 }
 
 class ChangeTitle extends SessionExerciseEvent {
@@ -9,9 +11,6 @@ class ChangeTitle extends SessionExerciseEvent {
   final String title;
 
   const ChangeTitle({required this.index, required this.title});
-
-  @override
-  List<Object?> get props => [index, title];
 }
 
 class ChangeRepsSetsLoad extends SessionExerciseEvent {
@@ -21,9 +20,6 @@ class ChangeRepsSetsLoad extends SessionExerciseEvent {
   final int load;
 
   const ChangeRepsSetsLoad({required this.index, required this.sets, required this.reps, required this.load});
-
-  @override
-  List<Object?> get props => [index, sets, reps, load];
 }
 
 class AddSessionExercise extends SessionExerciseEvent {
@@ -31,8 +27,5 @@ class AddSessionExercise extends SessionExerciseEvent {
   final SessionExercise exercise;
 
   const AddSessionExercise({required this.exercise});
-
-  @override
-  List<Object?> get props => [];
 }
-
+class ResetState extends SessionExerciseEvent {}

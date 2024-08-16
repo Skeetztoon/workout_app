@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
 import 'package:workout_diary_bloc/features/workouts_list/presentation/widgets/workout_list_tile.dart';
+import 'package:workout_diary_bloc/theme/styling_constants.dart';
 
 class WorkoutsListPage extends StatefulWidget {
   const WorkoutsListPage({super.key});
@@ -11,11 +12,14 @@ class WorkoutsListPage extends StatefulWidget {
 }
 
 class _WorkoutsListPageState extends State<WorkoutsListPage> {
+
+  //TODO add scrolling to top
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: MyPadding.pagePadding,
         child: Column(
           children: [
             const SizedBox(
@@ -23,7 +27,10 @@ class _WorkoutsListPageState extends State<WorkoutsListPage> {
             ),
             Text(
               'YOUR SESSIONS',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(
+              height: 20,
             ),
             BlocBuilder<WorkoutsListBloc, WorkoutsListState>(
               builder: (context, state) {

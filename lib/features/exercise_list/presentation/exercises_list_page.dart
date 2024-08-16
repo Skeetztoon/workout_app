@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/widgets/small_back_button.dart';
 import 'package:workout_diary_bloc/features/exercise_list/bloc/exercises_list_bloc.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/widgets/operation_alert_window.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/widgets/exercise_list_tile.dart';
+import 'package:workout_diary_bloc/core/widgets/wide_button.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
+import 'package:workout_diary_bloc/theme/styling_constants.dart';
 
 class ExerciseListPage extends StatefulWidget {
   const ExerciseListPage({super.key});
@@ -17,7 +20,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: MyPadding.pagePadding,
         child: Column(
           children: [
             const SizedBox(
@@ -25,7 +28,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
             ),
             Text(
               'YOUR EXERCISES',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             BlocBuilder<ExercisesListBloc, ExercisesListState>(
               builder: (context, state) {
@@ -49,46 +52,38 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
                 }
               },
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: Hero(
-        tag: 'FAB',
-        child: SizedBox(
-          width: 80.0,
-          height: 80.0,
-          child: FittedBox(
-            child: FloatingActionButton(
-              heroTag: null,
-              backgroundColor: MyColors.activeColor,
-              shape: const CircleBorder(),
-              child: const Icon(
-                Icons.add,
-                color: MyColors.whiteColor,
-              ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext dialogContext) {
-                      return BlocBuilder<ExercisesListBloc, ExercisesListState>(
-                          builder: (context, state) {
-                        return AlertDialog(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          contentPadding: EdgeInsets.zero,
-                          content: OperationAlertWindow(
-                            operationType: OperationType.add,
-                            buttonText: 'Add',
-                          ),
-                        );
-                      });
-                    });
-              },
+            Row(
+              children: [
+                SmallBackButton(onTap: () {
+                  Navigator.pop(context);
+                }),
+                const SizedBox(width: 20,),
+                WideButton(color: MyColors.activeColor, text: 'Add exercise', textColor: MyColors.whiteColor,
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext dialogContext) {
+                          return BlocBuilder<ExercisesListBloc, ExercisesListState>(
+                              builder: (context, state) {
+                                return AlertDialog(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(30))),
+                                  contentPadding: EdgeInsets.zero,
+                                  content: OperationAlertWindow(
+                                    operationType: OperationType.add,
+                                    buttonText: 'Add',
+                                  ),
+                                );
+                              });
+                        });
+                  },)
+              ],
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 }
+
