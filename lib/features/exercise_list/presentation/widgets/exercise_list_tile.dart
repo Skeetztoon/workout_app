@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/widgets/operation_alert_window.dart';
 import 'package:workout_diary_bloc/models/exercise_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
@@ -42,7 +43,7 @@ class _ExerciseListTileState extends State<ExerciseListTile> {
                         contentPadding: EdgeInsets.zero,
                         content: OperationAlertWindow(
                           operationType: OperationType.update,
-                          buttonText: 'Change',
+                          buttonText: context.locale!.change,
                           exercise: widget.exercise,
                         ),
                       );
@@ -61,7 +62,7 @@ class _ExerciseListTileState extends State<ExerciseListTile> {
                         contentPadding: EdgeInsets.zero,
                         content: OperationAlertWindow(
                           operationType: OperationType.delete,
-                          buttonText: 'Delete',
+                          buttonText: context.locale!.delete,
                           exercise: widget.exercise,
                         ),
                       );

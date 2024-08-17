@@ -10,5 +10,5 @@ TextTheme myTextTheme = const TextTheme(
   bodyLarge: TextStyle(fontSize: 30,),
   bodyMedium: TextStyle(fontSize: 22,),
   bodySmall: TextStyle(fontSize: 18, ),
-  titleLarge: TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: MyColors.whiteColor),
+  titleLarge: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: MyColors.whiteColor),
 );

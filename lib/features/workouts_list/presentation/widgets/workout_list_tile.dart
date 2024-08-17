@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
+import 'package:workout_diary_bloc/core/widgets/bounce_button.dart';
 import 'package:workout_diary_bloc/features/workouts_list/presentation/workout_session_page.dart';
 import 'package:workout_diary_bloc/models/workout_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
@@ -17,7 +19,7 @@ class WorkoutListTile extends StatefulWidget {
 class _WorkoutListTileState extends State<WorkoutListTile> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return BounceButton(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutSessionPage(workout: widget.workout)));
       },
@@ -38,7 +40,7 @@ class _WorkoutListTileState extends State<WorkoutListTile> {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 Text(
-                  widget.workout.duration,
+                  '${context.locale!.duration}: ${widget.workout.duration}',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
+import 'package:workout_diary_bloc/core/widgets/bounce_button.dart';
 import 'package:workout_diary_bloc/core/widgets/small_back_button.dart';
 import 'package:workout_diary_bloc/features/exercise_list/bloc/exercises_list_bloc.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/widgets/operation_alert_window.dart';
@@ -27,7 +29,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
               height: 50,
             ),
             Text(
-              'YOUR EXERCISES',
+              context.locale!.yourExercises,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             BlocBuilder<ExercisesListBloc, ExercisesListState>(
@@ -46,38 +48,44 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
                         }),
                   );
                 } else {
-                  return const Center(
-                    child: Text('Unable to load list :('),
+                  return Center(
+                    child: Text(context.locale!.somethingWentWrong),
                   );
                 }
               },
             ),
             Row(
               children: [
-                SmallBackButton(onTap: () {
-                  Navigator.pop(context);
-                }),
+                BounceButton(
+                onTap: () {
+      Navigator.pop(context);
+      },
+                  child: const SmallBackButton(),
+                ),
                 const SizedBox(width: 20,),
-                WideButton(color: MyColors.activeColor, text: 'Add exercise', textColor: MyColors.whiteColor,
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext dialogContext) {
-                          return BlocBuilder<ExercisesListBloc, ExercisesListState>(
-                              builder: (context, state) {
-                                return AlertDialog(
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(30))),
-                                  contentPadding: EdgeInsets.zero,
-                                  content: OperationAlertWindow(
-                                    operationType: OperationType.add,
-                                    buttonText: 'Add',
-                                  ),
-                                );
-                              });
-                        });
-                  },)
+                Expanded(
+                  child: BounceButton(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext dialogContext) {
+                              return BlocBuilder<ExercisesListBloc, ExercisesListState>(
+                                  builder: (context, state) {
+                                    return AlertDialog(
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.all(Radius.circular(30))),
+                                      contentPadding: EdgeInsets.zero,
+                                      content: OperationAlertWindow(
+                                        operationType: OperationType.add,
+                                        buttonText: context.locale!.add,
+                                      ),
+                                    );
+                                  });
+                            });
+                      },
+                      child: WideButton(color: MyColors.activeColor, text: context.locale!.addExercise, textColor: MyColors.whiteColor,)),
+                ),
               ],
             ),
           ],

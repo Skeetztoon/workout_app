@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
+import 'package:workout_diary_bloc/core/widgets/bounce_button.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/exercises_list_page.dart';
+import 'package:workout_diary_bloc/l10n/locale_cubit.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
 
 class AnimatedListButton extends StatefulWidget {
@@ -39,7 +43,11 @@ class _AnimatedListButtonState extends State<AnimatedListButton>
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(child: Container(
+        BounceButton(
+          onTap: () {
+            context.read<LocaleCubit>().changeLocale();
+          },
+          child: Container(
           width: 50,
           height: 50,
           decoration: BoxDecoration(
@@ -50,7 +58,7 @@ class _AnimatedListButtonState extends State<AnimatedListButton>
           ),
           child: const Icon(Icons.settings, ),
         ),),
-        GestureDetector(
+        BounceButton(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> const ExerciseListPage()));
           },
@@ -69,7 +77,7 @@ class _AnimatedListButtonState extends State<AnimatedListButton>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AnimatedCrossFade(
-                  firstChild: const Text('Exercises list'),
+                  firstChild: Text(context.locale!.exerciseList),
                   secondChild: Container(width: 0,),
                   crossFadeState: isVisible
                       ? CrossFadeState.showFirst

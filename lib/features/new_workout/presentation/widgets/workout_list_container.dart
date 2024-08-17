@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
+import 'package:workout_diary_bloc/core/widgets/bounce_button.dart';
 import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
 import 'package:workout_diary_bloc/features/new_workout/presentation/widgets/session_exercise_list_tile.dart';
 import 'package:workout_diary_bloc/models/session_exercise.dart';
@@ -40,14 +42,14 @@ class _WorkoutListContainerState extends State<WorkoutListContainer> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Exercise',
+                  context.locale!.exercise,
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
                       ?.copyWith(color: MyColors.darkGreyColor),
                 ),
                 Text(
-                  'Reps Sets   KG ',
+                  context.locale!.repsSetsLoad,
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -69,28 +71,65 @@ class _WorkoutListContainerState extends State<WorkoutListContainer> {
                         }),
                   );
                 } else {
-                  return const Text('Something went wrong');
+                  return Text(context.locale!.somethingWentWrong);
                 }
               },
             ),
-            Container(
-              width: 100,
-              decoration: BoxDecoration(
-                color: MyColors.activeColor,
-                borderRadius: BorderRadius.circular(30)
-              ),
-              child: TextButton(
-                onPressed: () {
-                context
-                    .read<SessionExerciseBloc>()
-                    .add(AddSessionExercise(exercise: SessionExercise()));
-                WidgetsBinding.instance
-                    .addPostFrameCallback((_) => scrollToBottom());
-              }, child: Row(children: [const Icon(Icons.add, color: MyColors.blackColor,), Text('ADD', style: Theme.of(context).textTheme.bodyMedium),],),),
-            )
+            _actionButtons(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _actionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        BounceButton(
+          onTap: () {
+            context.read<SessionExerciseBloc>().add(RemoveLastExercise());
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(width: 2, color: MyColors.darkGreyColor),
+            ),
+            child: const Icon(
+              Icons.remove,
+              color: MyColors.darkGreyColor,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        BounceButton(
+          onTap: () {
+            context
+                .read<SessionExerciseBloc>()
+                .add(AddSessionExercise(exercise: SessionExercise()));
+            WidgetsBinding.instance
+                .addPostFrameCallback((_) => scrollToBottom());
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: MyColors.activeColor,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(width: 2, color: MyColors.activeColor),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: MyColors.lightGreyColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

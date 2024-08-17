@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/core/widgets/shimmer_placeholder.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
 import 'package:workout_diary_bloc/features/workouts_list/presentation/workout_session_page.dart';
@@ -25,7 +26,7 @@ class LastSessionContainer extends StatelessWidget {
         builder: (context, state) {
           if (state is WorkoutsListLoaded) {
              if (state.workouts.isEmpty){
-               return  Center(child: Text('You had no workouts yet', style: Theme.of(context).textTheme.bodyMedium,),);
+               return  Center(child: Text(context.locale!.youHadNoWorkoutsYet, style: Theme.of(context).textTheme.bodyMedium,),);
              } else {
                int daysAgo = DateTime.now().difference(state.workouts.last.dateTime).inDays;
                return Row(
@@ -35,7 +36,7 @@ class LastSessionContainer extends StatelessWidget {
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        Text(
-                         'Last session',
+                         context.locale!.lastSession,
                          style: Theme.of(context)
                              .textTheme
                              .bodyMedium
@@ -52,14 +53,14 @@ class LastSessionContainer extends StatelessWidget {
                                    ?.copyWith(
                                    color: MyColors.activeColor,
                                    fontWeight: FontWeight.bold)),
-                           Text((daysAgo==1)?' day ago':' days ago',
+                           Text((daysAgo==1)?' day ago':' days ago', // TODO DAYS AGO
                                style: Theme.of(context)
                                    .textTheme
                                    .bodyMedium
                                    ?.copyWith(fontWeight: FontWeight.bold)),
                          ],
                        )
-                           : Text('Today',
+                           : Text(context.locale!.today,
                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
                                color: MyColors.activeColor,
                                fontWeight: FontWeight.bold)),

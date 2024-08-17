@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/features/exercise_list/bloc/exercises_list_bloc.dart';
 import 'package:workout_diary_bloc/models/exercise_model.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
@@ -35,7 +36,7 @@ class _OperationAlertWindowState extends State<OperationAlertWindow> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      height: 230,
+      height: 250,
       width: MediaQuery.of(context).size.width * 1,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(30.0)),
@@ -49,6 +50,7 @@ class _OperationAlertWindowState extends State<OperationAlertWindow> {
                 Form(
                   key: _formKey,
                   child: TextFormField(
+
                     initialValue: (widget.operationType == OperationType.update)
                         ? widget.exercise!.title
                         : '',
@@ -56,26 +58,26 @@ class _OperationAlertWindowState extends State<OperationAlertWindow> {
                         .textTheme
                         .bodyMedium!
                         .copyWith(color: Colors.white),
-                    decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
+                    decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: UnderlineInputBorder(
+                        focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.pink)),
-                        hintText: "Type your exercise here",
-                        hintStyle: TextStyle(color: Colors.grey)),
+                        hintText: context.locale!.typeYourExerciseHere,
+                        hintStyle: const TextStyle(color: Colors.grey)),
                     onChanged: (value) {
                       exerciseLabel = value;
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Field is empty";
+                        return context.locale!.fieldIsEmpty;
                       }
                       return null;
                     },
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Center(
                   child: ElevatedButton(
@@ -112,13 +114,16 @@ class _OperationAlertWindowState extends State<OperationAlertWindow> {
               ]
             : <Widget>[
                 Text(
-                  'Do you want to delete exercise?',
+                  context.locale!.doYouWantToDeleteExercise,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
                       .copyWith(color: MyColors.whiteColor),
                 ),
-                TextButton(
+                const SizedBox(height: 20,),
+                ElevatedButton(
+                  style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                   onPressed: () {
                     context
                         .read<ExercisesListBloc>()
@@ -126,7 +131,7 @@ class _OperationAlertWindowState extends State<OperationAlertWindow> {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    'Delete',
+                    context.locale!.delete,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!

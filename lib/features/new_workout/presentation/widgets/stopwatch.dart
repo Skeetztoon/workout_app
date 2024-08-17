@@ -41,10 +41,14 @@ class _MyStopwatchState extends State<MyStopwatch> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StopwatchCubit, String>(builder: (context, time) => Text(time, style: Theme.of(context)
-        .textTheme
-        .bodyLarge
-        ?.copyWith(color: MyColors.whiteColor)));
-
+    return BlocBuilder<StopwatchCubit, String>(
+      builder: (context, time) => Text(
+        time,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(color: MyColors.whiteColor),
+      ),
+    );
   }
 }

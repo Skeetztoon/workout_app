@@ -1,0 +1,41 @@
+{
+    "appTitle": "Workout Tracker App",
+    "lastSession": "Last session",
+    "today": "today",
+    "daysAgo": "{count, plural, =1{day} other{days}} ago",
+    "@daysAgo": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "youHadNoWorkoutsYet": "You had no workouts yet",
+    "change": "Change",
+    "delete": "Delete",
+    "add": "Add",
+    "addExercise": "Add exercise",
+    "typeYourExerciseHere": "Type title",
+    "fieldIsEmpty": "Field is empty",
+    "doYouWantToDeleteExercise": "Do you want to delete exercise",
+    "yourExercises": "YOUR EXERCISES",
+    "newWorkout": "NEW WORKOUT",
+    "workout": "WORKOUT",
+    "yourSessions": "YOUR SESSIONS",
+    "somethingWentWrong": "Something went wrong",
+    "errorOccurred": "Error occurred",
+    "exerciseList": "Exercises list",
+    "tapToChoose": "Tap to choose",
+    "noExercisesAdded": "No exercises added",
+    "youShouldSelectExercise": "You should select exercise",
+    "gotTt": "Got it",
+    "close": "Close",
+    "slideToFinish": "Slide to finish",
+    "exercise": "exercise",
+    "repsSetsLoad": "Reps Sets   KG",
+    "duration": "Duration",
+    "kg": "kg",
+    "mySessionExportText": "My session on #APPNAME",
+    "share": "Share"
+}

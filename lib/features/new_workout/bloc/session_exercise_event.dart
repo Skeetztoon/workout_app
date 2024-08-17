@@ -28,4 +28,6 @@ class AddSessionExercise extends SessionExerciseEvent {
 
   const AddSessionExercise({required this.exercise});
 }
+
+class RemoveLastExercise extends SessionExerciseEvent{}
 class ResetState extends SessionExerciseEvent {}

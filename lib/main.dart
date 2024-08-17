@@ -8,7 +8,10 @@ import 'package:workout_diary_bloc/features/initial/presentation/initial_page.da
 import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
 import 'package:workout_diary_bloc/features/new_workout/stopwatch_cubit/stopwatch_cubit.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
+import 'package:workout_diary_bloc/l10n/locale_cubit.dart';
 import 'package:workout_diary_bloc/theme/dark_theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,11 +42,25 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BottomTabsBloc()),
         BlocProvider(create: (context) => SessionExerciseBloc()),
         BlocProvider(create: (_) => StopwatchCubit()),
+        BlocProvider(create: (_) => LocaleCubit()),
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: darkTheme,
-        home: const InitialPage(),
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            supportedLocales: const [Locale('en'),
+            Locale('ru')],
+            locale: (context.read<LocaleCubit>().state)?const Locale('en'):const Locale('ru'),
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            title: 'Flutter Demo',
+            theme: darkTheme,
+            home: const InitialPage(),
+          );
+        }
       ),
     );
   }

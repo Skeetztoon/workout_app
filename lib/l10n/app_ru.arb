@@ -1,0 +1,41 @@
+{
+    "appTitle": "Workout Tracker App",
+    "lastSession": "Крайняя тренировка",
+    "today": "сегодня",
+    "daysAgo": "{count, plural, =1{день} few{дня} many{дней} other{дней}} назад",
+        "@daysAgo": {
+            "placeholders": {
+                "count": {
+                    "type": "int",
+                    "example": "1"
+                }
+            }
+        },
+    "youHadNoWorkoutsYet": "У вас еще не было тренировок",
+    "change": "Изменить",
+    "delete": "Удалить",
+    "add": "Добавить",
+    "addExercise": "Добавить упражнение",
+    "typeYourExerciseHere": "Введите название",
+    "fieldIsEmpty": "Поле пустое",
+    "doYouWantToDeleteExercise": "Вы хотите удалить упражнение?",
+    "yourExercises": "УПРАЖНЕНИЯ",
+    "newWorkout": "НОВАЯ ТРЕНИРОВКА",
+    "workout": "ТРЕНИРОВКА",
+    "yourSessions": "ВАШИ ТРЕНИРОВКИ",
+    "somethingWentWrong": "Что-то пошло не так",
+    "errorOccurred": "Произошла ошибка",
+    "exerciseList": "Упражнения ",
+    "tapToChoose": "Выберите упражнение",
+    "noExercisesAdded": "Не добавлено упражнений",
+    "youShouldSelectExercise": "Вам нужно выбрать упражнение",
+    "gotTt": "Понятно",
+    "close": "Закрыть",
+    "slideToFinish": "Закончить",
+    "exercise": "упражнение",
+    "repsSetsLoad": "разы  круги  кг",
+    "duration": "Время",
+    "kg": "кг",
+    "mySessionExportText": "Моя тренировка в #NAMEREGАЛА",
+    "share": "Поделиться"
+}

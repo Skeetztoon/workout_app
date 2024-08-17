@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
 import 'package:workout_diary_bloc/features/workouts_list/presentation/widgets/workout_list_tile.dart';
 import 'package:workout_diary_bloc/theme/styling_constants.dart';
@@ -26,7 +27,8 @@ class _WorkoutsListPageState extends State<WorkoutsListPage> {
               height: 50,
             ),
             Text(
-              'YOUR SESSIONS',
+              textAlign: TextAlign.center,
+              context.locale!.yourSessions,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
@@ -48,8 +50,8 @@ class _WorkoutsListPageState extends State<WorkoutsListPage> {
                         }),
                   );
                 } else {
-                  return const Center(
-                    child: Text('Unable to load list :('),
+                  return Center(
+                    child: Text(context.locale!.somethingWentWrong,),
                   );
                 }
               },

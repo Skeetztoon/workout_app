@@ -35,6 +35,15 @@ class SessionExerciseBloc
           sessionExercises: list));
     });
 
+    on<RemoveLastExercise>((RemoveLastExercise event, Emitter emit) {
+      final state = this.state as SessionExerciseInitial;
+      List<SessionExercise> list = List.from(state.sessionExercises);
+      if (list.isNotEmpty) {
+        list.removeLast();
+      }
+      emit(SessionExerciseInitial(sessionExercises: list));
+    });
+
     on<ResetState>((ResetState event, Emitter emit) {
       emit(SessionExerciseInitial(
           sessionExercises: [SessionExercise()]));

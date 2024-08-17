@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
 
 class ExerciseDropdownButton extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ExerciseDropdownButtonState extends State<ExerciseDropdownButton> {
       child: DropdownButton(
         itemHeight: 65,
         isExpanded: true,
-        hint: Text('Tap to choose', style: Theme.of(context).textTheme.bodyMedium,),
+        hint: Text(context.locale!.tapToChoose, style: Theme.of(context).textTheme.bodyMedium,),
         style: Theme.of(context).textTheme.bodyMedium,
         alignment: Alignment.centerLeft,
         value: dropdownValue,
