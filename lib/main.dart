@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -8,7 +10,6 @@ import 'package:workout_diary_bloc/features/initial/presentation/initial_page.da
 import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
 import 'package:workout_diary_bloc/features/new_workout/stopwatch_cubit/stopwatch_cubit.dart';
 import 'package:workout_diary_bloc/features/workouts_list/bloc/workouts_list_bloc.dart';
-import 'package:workout_diary_bloc/l10n/locale_cubit.dart';
 import 'package:workout_diary_bloc/theme/dark_theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,7 +25,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -42,21 +42,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BottomTabsBloc()),
         BlocProvider(create: (context) => SessionExerciseBloc()),
         BlocProvider(create: (_) => StopwatchCubit()),
-        BlocProvider(create: (_) => LocaleCubit()),
       ],
       child: Builder(
         builder: (context) {
+          final String deviceLocale = Platform.localeName;
           return MaterialApp(
-            supportedLocales: const [Locale('en'),
-            Locale('ru')],
-            locale: (context.read<LocaleCubit>().state)?const Locale('en'):const Locale('ru'),
+            supportedLocales: const [Locale('en'), Locale('ru')],
+            locale: (deviceLocale.startsWith('ru')) ? const Locale('ru') : const Locale('en'),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            title: 'Flutter Demo',
+            title: 'Workout Tracker App',
             theme: darkTheme,
             home: const InitialPage(),
           );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:workout_diary_bloc/features/new_workout/bloc/session_exercise_bloc.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
 
 class SmallBackButton extends StatefulWidget {

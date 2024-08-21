@@ -1,5 +1,5 @@
 {
-    "appTitle": "Workout Tracker App",
+    "appTitle": "RepRise",
     "lastSession": "Крайняя тренировка",
     "today": "сегодня",
     "daysAgo": "{count, plural, =1{день} few{дня} many{дней} other{дней}} назад",
@@ -23,6 +23,7 @@
     "newWorkout": "НОВАЯ ТРЕНИРОВКА",
     "workout": "ТРЕНИРОВКА",
     "yourSessions": "ВАШИ ТРЕНИРОВКИ",
+    "about": "О ПРИЛОЖЕНИИ",
     "somethingWentWrong": "Что-то пошло не так",
     "errorOccurred": "Произошла ошибка",
     "exerciseList": "Упражнения ",
@@ -36,6 +37,8 @@
     "repsSetsLoad": "разы  круги  кг",
     "duration": "Время",
     "kg": "кг",
-    "mySessionExportText": "Моя тренировка в #NAMEREGАЛА",
-    "share": "Поделиться"
+    "mySessionExportText": "Моя тренировка в #RepRise",
+    "share": "Поделиться",
+    "dataStoredLocally": "Все данные хранятся на устройстве, при удалении приложения информация будет потеряна",
+    "emailInfo": "Если вы нашли ошибку или имеются предложения, напишите нам:"
 }

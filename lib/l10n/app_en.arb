@@ -1,5 +1,5 @@
 {
-    "appTitle": "Workout Tracker App",
+    "appTitle": "RepRise",
     "lastSession": "Last session",
     "today": "today",
     "daysAgo": "{count, plural, =1{day} other{days}} ago",
@@ -23,6 +23,7 @@
     "newWorkout": "NEW WORKOUT",
     "workout": "WORKOUT",
     "yourSessions": "YOUR SESSIONS",
+    "about": "ABOUT",
     "somethingWentWrong": "Something went wrong",
     "errorOccurred": "Error occurred",
     "exerciseList": "Exercises list",
@@ -36,6 +37,8 @@
     "repsSetsLoad": "Reps Sets   KG",
     "duration": "Duration",
     "kg": "kg",
-    "mySessionExportText": "My session on #APPNAME",
-    "share": "Share"
+    "mySessionExportText": "My session on #RepRise",
+    "share": "Share",
+    "dataStoredLocally": "Data is stored locally. If you delete the app, all information will be lost.",
+    "emailInfo": "If you have any issues with an app or ideas for updates, please contact us at:"
 }

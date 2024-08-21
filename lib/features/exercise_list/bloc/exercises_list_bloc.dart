@@ -20,7 +20,7 @@ class ExercisesListBloc extends HydratedBloc<ExercisesListEvent, ExercisesListSt
     on<AddExercise>((AddExercise event, Emitter emit) {
       if (state is ExercisesListLoaded) {
         final state = this.state as ExercisesListLoaded;
-        List<Exercise> list = List.from(state.exercises)..add(Exercise(id: Uuid().v1(), title: event.title));
+        List<Exercise> list = List.from(state.exercises)..add(Exercise(id: const Uuid().v1(), title: event.title));
         emit(ExercisesListLoaded(exercises: list));
       }
     });

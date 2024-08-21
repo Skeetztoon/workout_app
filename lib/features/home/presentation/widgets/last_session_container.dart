@@ -33,6 +33,7 @@ class LastSessionContainer extends StatelessWidget {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                    Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        Text(
@@ -53,7 +54,7 @@ class LastSessionContainer extends StatelessWidget {
                                    ?.copyWith(
                                    color: MyColors.activeColor,
                                    fontWeight: FontWeight.bold)),
-                           Text((daysAgo==1)?' day ago':' days ago', // TODO DAYS AGO
+                           Text(" ${context.locale!.daysAgo(daysAgo)}",
                                style: Theme.of(context)
                                    .textTheme
                                    .bodyMedium

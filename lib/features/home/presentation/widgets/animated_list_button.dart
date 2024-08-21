@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_diary_bloc/core/extentions/build_context_extention.dart';
 import 'package:workout_diary_bloc/core/widgets/bounce_button.dart';
 import 'package:workout_diary_bloc/features/exercise_list/presentation/exercises_list_page.dart';
-import 'package:workout_diary_bloc/l10n/locale_cubit.dart';
+import 'package:workout_diary_bloc/features/home/presentation/widgets/about_page.dart';
 import 'package:workout_diary_bloc/theme/colors.dart';
 
 class AnimatedListButton extends StatefulWidget {
@@ -45,7 +44,7 @@ class _AnimatedListButtonState extends State<AnimatedListButton>
       children: [
         BounceButton(
           onTap: () {
-            context.read<LocaleCubit>().changeLocale();
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutPage()));
           },
           child: Container(
           width: 50,
